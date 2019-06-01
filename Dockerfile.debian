@@ -1,0 +1,29 @@
+FROM python:3-slim-stretch
+
+# set environment variable
+#
+ARG VERSION="python-data-science"
+
+# set maintenance info
+#
+LABEL dev.gworkx.tech.version="v1.0"
+LABEL vendor="Gerald Luzangi"
+LABEL maintainer="gerald.luzangi@gmail.com"
+LABEL dev.gworkx.tech.release-date="2019-05-20"
+LABEL dev.gworkx.tech.version.is-production="$VERSION"
+
+RUN set -x \
+    && apt-get update && apt-get upgrade -y && apt-get install -y build-essential \
+    aria2 curl vim libssl-dev xml2 libxslt1-dev uuid-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY ./app-code /app
+VOLUME ["/app"]
+WORKDIR /app
+
+RUN pip install -U pip && pip install cython && pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 5000
+
+ENTRYPOINT ["python"]
+CMD ["./app.py"]
