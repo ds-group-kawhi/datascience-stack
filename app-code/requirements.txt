@@ -10,7 +10,7 @@ chardet==3.0.4
 Click==7.0
 clyent==1.2.1
 cookies==2.2.1
-cryptography==2.6.1
+cryptography==3.2
 Cython==0.29.7
 Flask==1.0.3
 html5lib==1.0.1
